@@ -1,17 +1,29 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import Prototype.AppSettings;
+
 public class Main {
   public static void main(String[] args) {
-    // Press Alt+Enter with your caret at the highlighted text to see how
-    // IntelliJ IDEA suggests fixing it.
-    System.out.printf("Hello and welcome!");
+    try {
+      AppSettings originalSettings = new AppSettings();
+      originalSettings.setSetting("theme", "светлая");
+      originalSettings.setSetting("language", "английский");
 
-    // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-    for (int i = 1; i <= 5; i++) {
+      AppSettings clonedSettings = originalSettings.clone();
 
-      // Press Shift+F9 to start debugging your code. We have set one breakpoint
-      // for you, but you can always add more by pressing Ctrl+F8.
-      System.out.println("i = " + i);
+      clonedSettings.setSetting("theme", "тёмная");
+      clonedSettings.setSetting("language", "русский");
+
+      System.out.println("Начальные настройки: ");
+      printSettings(originalSettings);
+
+      System.out.println("\nИзменённые настройки: ");
+      printSettings(clonedSettings);
+    } catch (CloneNotSupportedException e) {
+      System.err.print("Ошибка" + e);
     }
+  }
+
+  private static void printSettings(AppSettings settings) {
+    System.out.println("Theme: " + settings.getSetting("theme"));
+    System.out.println("Language: " + settings.getSetting("language"));
   }
 }
